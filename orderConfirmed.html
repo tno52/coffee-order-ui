@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed</title>
+<style>
+  body {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: start; 
+  height: 100vh;
+  text-align: center;
+  padding-top: 25vh; /* 25% down from top */
+  background-color: #f6f6ab;
+}
+.order-summary {
+  font-size: 2rem;
+  font-weight: bold;
+  width: 100%;
+  max-width: 600px; 
+}
+
+
+#coffeeOrderLink {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+    font-weight: bold;
+    font-size: 40px;
+    color: orange; 
+    text-decoration: none; 
+  }
+
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const finalOrder = JSON.parse(localStorage.getItem('finalOrder')) || {};
+  const { beverage, condiments = [] } = finalOrder;
+  const priceList = {
+    "House blend": 1,
+    "Dark roast": 2,
+    "Decaf": 3,
+    "Espresso": 4,
+    "Whip": 0.25,
+    "Milk": 0.5,
+    "Mocha": 0.75,
+    "Soy": 1.25
+  };
+  let total = priceList[beverage] || 0; // If bev is missing somehow, sets to 0 
+  for (let condiment of condiments) {
+    total += priceList[condiment] || 0; // only adds condiment if it has price 
+  }
+
+  const summaryElement = document.getElementById('order-summary');
+  const condimentsText = condiments.length ? condiments.join(', ') : 'None';
+  summaryElement.innerHTML = `
+    <p>Order Placed:</p>
+    <p>Order ID: 24</p>
+    <p>Drink Ordered: ${beverage || 'n/a'}</p>
+    <p>Condiments: ${condimentsText}</p>
+    <p>Total: $${total.toFixed(2)}</p>
+  `;
+});
+
+</script>
+</head>
+<body>
+    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+
+
+<div class="order-summary" id="order-summary">
+  <!-- Order Details -->
+</div>
+
+</body>
+</html>

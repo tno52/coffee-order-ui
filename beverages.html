@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Beverage</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    margin: 0;
+    background-color: #f6f6ab;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh; 
+  }
+
+  .beverage-container {
+    position: relative;
+    top: -15%; /* moves the stuff up 15% from center */
+    width: 100%;
+  }
+
+  .beverage-button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    font-size: 24px;
+    cursor: pointer;
+    width: 200px; 
+  }
+
+  #coffeeOrderLink {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: orange; 
+    text-decoration: none; 
+  }
+</style>
+</head>
+<body>
+    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+
+<div class="beverage-container">
+  <h1>Select Your Beverage</h1>
+  <button class="beverage-button" onclick="selectBeverage('Dark Roast')">Dark Roast</button>
+  <button class="beverage-button" onclick="selectBeverage('Espresso')">Espresso</button>
+  <button class="beverage-button" onclick="selectBeverage('House Blend')">House Blend</button>
+  <button class="beverage-button" onclick="selectBeverage('Decaf')">Decaf</button>
+</div>
+
+<script>
+  function selectBeverage(beverageName) {
+    localStorage.setItem('selectedBeverage', beverageName);
+    window.location.href = 'condiments.html';
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coffee Shop</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+    background-color: #f6f6ab; 
+  }
+
+  .order-button {
+    padding: 75px;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative; 
+    top: -15%; /* moves the button up 15% from center */
+  }
+
+  #coffeeOrderLink {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    color: orange; 
+    text-decoration: none; 
+  }
+</style>
+</head>
+<body>
+    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+
+<button class="order-button" id="startOrderButton">Start Your Order Here</button>
+
+<script>
+  document.getElementById('startOrderButton').onclick = function() {
+    window.location.href = 'beverages.html';
+  };
+</script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Condiments</title>
+<style>
+
+    body{
+        background-color: #f6f6ab;
+    }
+  .container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    padding: 20px;
+    box-sizing: border-box;
+    
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 10px; 
+  }
+
+  .condiments {
+    flex: 3; /* Makes it take 3/4 of the space */
+  }
+
+  .order-status {
+    flex: 1; /* does 1/4 */
+    background-color: #fa8900;
+  }
+
+  h2 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .button-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    grid-gap: 10px; 
+    width: 100%;
+    max-width: 300px; 
+    
+  }
+
+  .condiment-button {
+    padding: 50px; 
+    font-size: 1.5rem; 
+    cursor: pointer;
+  }
+
+  #confirmOrderButton {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-top: 20px; 
+  }
+
+  #condimentsList {
+    width: 50%;
+    font-weight: bold;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  #condimentsList li {
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px 0; 
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    background-color: #FFD700;
+  }
+
+  #selectedBeverage {
+        cursor: pointer;
+        border: 1px solid #ccc;
+        font-weight: bold;
+        border-radius: 3px;
+        padding: 5px;
+        margin-bottom: 10px; 
+        text-align: center; 
+        transition: all 0.3s; 
+        background-color: #FFD700;
+        
+      }
+
+      #coffeeOrderLink {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 20px;
+    font-weight: bold;
+    font-size: 40px;
+    color: orange; 
+    text-decoration: none;
+  }
+
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    .box {
+      width: 100%; 
+      margin: 10px 0; 
+    }
+    .button-container {
+      max-width: none;
+    }
+  }
+</style>
+<script>
+  let condiments = [];
+
+  function addCondiment(condiment) {
+    if (!condiments.includes(condiment)) {
+      condiments.push(condiment);
+      updateCondimentsDisplay();
+    }
+  }
+
+  function removeCondiment(condiment) {
+    const index = condiments.indexOf(condiment);
+    if (index > -1) {
+      condiments.splice(index, 1);
+      updateCondimentsDisplay();
+    }
+  }
+
+  function updateCondimentsDisplay() {
+    const condimentsList = document.getElementById('condimentsList');
+    condimentsList.innerHTML = condiments.map(c => `<li onclick="removeCondiment('${c}')">${c}</li>`).join('');
+  }
+
+  function removeBeverageAndGoBack() {
+    localStorage.removeItem('selectedBeverage');
+    window.location.href = 'beverages.html';
+  }
+
+  function confirmOrder() {
+    // stores the final order in LOCAL storage 
+    localStorage.setItem('finalOrder', JSON.stringify({ beverage: localStorage.getItem('selectedBeverage'), condiments }));
+    window.location.href = 'orderConfirmed.html';
+  }
+
+  document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('selectedBeverage').innerText = localStorage.getItem('selectedBeverage');
+  });
+</script>
+</head>
+<body>
+    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+
+
+<div class="container">
+  <div class="box condiments">
+    <h2>Select Your Condiments</h2>
+    <div class="button-container">
+      <button class="condiment-button" onclick="addCondiment('Milk')">Milk</button>
+      <button class="condiment-button" onclick="addCondiment('Mocha')">Mocha</button>
+      <button class="condiment-button" onclick="addCondiment('Soy')">Soy</button>
+      <button class="condiment-button" onclick="addCondiment('Whip')">Whip</button>
+    </div>
+  </div>
+
+  <div class="box order-status">
+    <h2>Your Current Order</h2>
+    
+    <div id="selectedBeverage" onclick="removeBeverageAndGoBack()">
+      Selected Beverage: <span></span>
+    </div>
+    <ul id="condimentsList">
+      <!-- Condiments -->
+    </ul>
+    <button id="confirmOrderButton" onclick="confirmOrder()">Confirm Order</button>
+  </div>
+</div>
+
+<script>
+  // after page is loaded, gets the selected drink from last page 
+  document.addEventListener('DOMContentLoaded', () => {
+    const beverageSpan = document.getElementById('selectedBeverage').querySelector('span');
+    beverageSpan.textContent = localStorage.getItem('selectedBeverage');
+    updateCondimentsDisplay(); 
+  });
+</script>
+
+</body>
+</html>
