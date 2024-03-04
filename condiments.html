@@ -150,10 +150,35 @@
   }
 
   function confirmOrder() {
-    // stores the final order in LOCAL storage 
-    localStorage.setItem('finalOrder', JSON.stringify({ beverage: localStorage.getItem('selectedBeverage'), condiments }));
-    window.location.href = 'orderConfirmed.html';
-  }
+    const orderData = {
+        beverage: localStorage.getItem('selectedBeverage'),
+        condiments: condiments
+    };
+    console.log(orderData);
+
+    fetch('https://coffee-order-3h4r.onrender.com/orders', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => {
+        if (response.ok) {
+            
+            window.location.href = 'orderConfirmed.html';
+        } else {
+            console.error('Error:', response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+      localStorage.setItem("receipt", JSON.stringify(data));
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
 
   document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('selectedBeverage').innerText = localStorage.getItem('selectedBeverage');
