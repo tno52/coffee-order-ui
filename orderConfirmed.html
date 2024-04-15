@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="navbar.css">
 <title>Order Confirmed</title>
 <style>
   body {
@@ -35,34 +36,44 @@
   }
 
 </style>
+<script src="configuration.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-  const finalOrder = JSON.parse(localStorage.getItem('finalOrder')) || {};
-  const orderReceipt = JSON.parse(localStorage.getItem('receipt'));
-  const { description, cost, id} = orderReceipt;
-  const { beverage, condiments = [] } = finalOrder;
   
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!configuration.isloggedIn()) {
+      window.location.href = 'login.html';
+      return;
+    }
 
-  const summaryElement = document.getElementById('order-summary');
-  const condimentsText = condiments.length ? condiments.join(', ') : 'None';
-  summaryElement.innerHTML = `
-    <p>Order Placed:</p>
-    <p>Order ID: ${id}</p>
-    <p>Drink Ordered: ${beverage || 'n/a'}</p>
-    <p>Condiments: ${condimentsText}</p>
-    <p>Total: $${cost}</p>
-  `;
-});
+    const finalOrder = JSON.parse(localStorage.getItem('finalOrder')) || {};
+    const orderReceipt = JSON.parse(localStorage.getItem('receipt'));
+    const { description, cost, id } = orderReceipt;
+    const { beverage, condiments = [] } = finalOrder;
 
+    const summaryElement = document.getElementById('order-summary');
+    const condimentsText = condiments.length ? condiments.join(', ') : 'None';
+    summaryElement.innerHTML = `
+      <p>Order Placed:</p>
+      <p>Order ID: ${id}</p>
+      <p>Drink Ordered: ${beverage || 'n/a'}</p>
+      <p>Condiments: ${condimentsText}</p>
+      <p>Total: $${cost}</p>
+    `;
+  });
+
+  
+  document.addEventListener('DOMContentLoaded', updateTheNavigationBar);
 </script>
 </head>
 <body>
-    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+  <ul class="topnav">
+    <li><a  class="active" href="index.html">Home</a></li>
+    <li class="right"><a href="login.html">Login</a></li>
+  </ul>
 
-
-<div class="order-summary" id="order-summary">
-  <!-- Order Details -->
-</div>
+  <div class="order-summary" id="order-summary">
+    <!-- Order Details -->
+  </div>
 
 </body>
 </html>

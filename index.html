@@ -3,16 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="navbar.css">
 <title>Coffee Shop</title>
 <style>
   body {
     font-family: 'Arial', sans-serif;
+    margin: 0; 
+    background-color: #f6f6ab; 
+  }
+
+  .center-container {
     display: flex;
     justify-content: center; 
     align-items: center; 
-    height: 100vh; 
-    margin: 0; 
-    background-color: #f6f6ab; 
+    height: 100vh;
   }
 
   .order-button {
@@ -20,8 +24,11 @@
     font-size: 50px;
     font-weight: bold;
     cursor: pointer;
-    position: relative; 
-    top: -15%; /* moves the button up 15% from center */
+  }
+
+  .topnav {
+    width: 100%; /* ensures the navbar spans the full width of the viewport */
+    position: relative;
   }
 
   #coffeeOrderLink {
@@ -37,15 +44,19 @@
 </style>
 </head>
 <body>
-    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+  <ul class="topnav">
+    <li><a class="active" href="index.html">Home</a></li>
+    <li class="right"><a href="login.html">Login</a></li>
+  </ul>
 
-<button class="order-button" id="startOrderButton">Start Your Order Here</button>
+  <div class="center-container">
+    <button class="order-button" id="startOrderButton">Start Your Order Here</button>
+  </div>
 
-<script>
-  document.getElementById('startOrderButton').onclick = function() {
-    window.location.href = 'beverages.html';
-  };
-</script>
-
+  <script>
+    document.getElementById('startOrderButton').onclick = function() {
+      window.location.href = 'beverages.html';
+    };
+  </script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="navbar.css">
 <title>Select Beverage</title>
 <style>
   body {
@@ -10,15 +11,18 @@
     text-align: center;
     margin: 0;
     background-color: #f6f6ab;
+  }
+
+  .content-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh; 
+    align-items: center;
+    height: 100vh;
   }
 
   .beverage-container {
     position: relative;
-    top: -15%; /* moves the stuff up 15% from center */
     width: 100%;
   }
 
@@ -28,38 +32,37 @@
     padding: 10px 20px;
     font-size: 24px;
     cursor: pointer;
-    width: 200px; 
+    width: 200px;
   }
 
-  #coffeeOrderLink {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 20px;
-    font-size: 40px;
-    font-weight: bold;
-    color: orange; 
-    text-decoration: none; 
+  .topnav {
+    width: 100%; /* ensures the navbar spans the full width of the viewport */
+    position: relative;
   }
 </style>
 </head>
 <body>
-    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+  <ul class="topnav">
+    <li><a href="index.html">Home</a></li>
+    <li class="right"><a class="active" href="login.html">Login</a></li>
+  </ul>
 
-<div class="beverage-container">
-  <h1>Select Your Beverage</h1>
-  <button class="beverage-button" onclick="selectBeverage('Dark Roast')">Dark Roast</button>
-  <button class="beverage-button" onclick="selectBeverage('Espresso')">Espresso</button>
-  <button class="beverage-button" onclick="selectBeverage('House Blend')">House Blend</button>
-  <button class="beverage-button" onclick="selectBeverage('Decaf')">Decaf</button>
-</div>
+  <div class="content-container">
+    <div class="beverage-container">
+      <h1>Select Your Beverage</h1>
+      <button class="beverage-button" onclick="selectBeverage('Dark Roast')">Dark Roast</button>
+      <button class="beverage-button" onclick="selectBeverage('Espresso')">Espresso</button>
+      <button class="beverage-button" onclick="selectBeverage('House Blend')">House Blend</button>
+      <button class="beverage-button" onclick="selectBeverage('Decaf')">Decaf</button>
+    </div>
+  </div>
 
-<script>
-  function selectBeverage(beverageName) {
-    localStorage.setItem('selectedBeverage', beverageName);
-    window.location.href = 'condiments.html';
-  }
-</script>
-
+  <script>
+    function selectBeverage(beverageName) {
+      localStorage.setItem('selectedBeverage', beverageName);
+      window.location.href = 'condiments.html';
+    }
+  </script>
+<script src="configuration.js"></script>
 </body>
 </html>

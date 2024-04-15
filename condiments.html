@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="navbar.css">
 <title>Add Condiments</title>
 <style>
 
@@ -121,6 +122,7 @@
     }
   }
 </style>
+<script src="configuration.js"></script>
 <script>
   let condiments = [];
 
@@ -156,10 +158,11 @@
     };
     console.log(orderData);
 
-    fetch('https://coffee-order-3h4r.onrender.com/orders', {
+    fetch(getHost(), {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization' : 'Bearer ${configuration.token()}'
         },
         body: JSON.stringify(orderData)
     })
@@ -186,7 +189,10 @@
 </script>
 </head>
 <body>
-    <a href="index.html" id="coffeeOrderLink">Coffee Order System</a>
+  <ul class="topnav">
+    <li><a  class="active" href="index.html">Home</a></li>
+    <li class="right"><a  href="login.html">Login</a></li>
+</ul>
 
 
 <div class="container">
