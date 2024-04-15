@@ -1,7 +1,7 @@
 const mode = 0;
 
 const host_local = "http://localhost:8080";
-const host_remote = "https://ducks-service-??.onrender.com";
+const host_remote = "https://homework8-1em9.onrender.com";
 
 function getHost() 
 {
